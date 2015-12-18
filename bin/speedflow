@@ -1,0 +1,52 @@
+#!/usr/bin/env ruby
+
+$PROGRAM_NAME = 'speedflow'
+
+require 'trollop'
+require 'speedflow'
+
+show_commands = <<-EOS
+Usage: speedflow <command> [options]
+The most commonly used speedflow commands are:
+   init        Initilize your project flow
+   start       Start new flow item
+See `speedflow <command> --help` for more information on a specific command.
+[options] are:
+EOS
+
+SUB_COMMANDS = %w(init)
+global_options = Trollop::options do
+  stop_on SUB_COMMANDS
+  banner show_commands
+  version "speedflow version #{Speedflow::VERSION}"
+end
+
+command = ARGV.shift
+command_options = case command
+  when "init"
+    Trollop::options do
+      banner "speedflow init - Initilize your project flow"
+      opt :config, "Path to a configuration file", :short => "-c", :default => ".speedflow"
+      opt :debug,  "Display debug information"
+    end
+  when "start"
+    Trollop::options do
+      banner "speedflow start - Start new flow item"
+      opt :type, "Type of item", :short => "-t", :default => "story"
+      opt :debug,  "Display debug information"
+    end
+  else
+    if command.nil?
+      puts show_commands
+      exit
+    else
+      Trollop::die "Unknown subcommand #{command.inspect}"
+    end
+  end
+
+begin
+  Speedflow::CommandLine.new(command, command_options, global_options, ARGV, File.expand_path("."))
+rescue Interrupt => e
+  puts StringUtil.failure("\nQuitting...")
+  exit 1
+end
