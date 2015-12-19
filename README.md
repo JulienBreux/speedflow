@@ -6,13 +6,11 @@ TODO: Delete this and the text above, and describe your gem
 
 ## Installation
 
-Install it yourself as:
-
     $ gem install speedflow
 
 ## Usage
 
-Initialize a new project flow
+### Initialize a new project flow
 
     $ speedflow init
 
