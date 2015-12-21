@@ -1,6 +1,6 @@
 module Speedflow
   class CommandLine
-    attr_accessor :configuration, :global_options, :command_options, :parameters
+    attr_accessor :configuration, :global_options, :command_options, :parameters, :project_path
 
     def initialize(command, command_options, global_options, parameters, project_path)
       self.command_options = command_options
