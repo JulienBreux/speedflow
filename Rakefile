@@ -4,7 +4,7 @@ begin
   require 'rspec/core/rake_task'
   RSpec::Core::RakeTask.new(:spec) do |task|
     task.pattern = "{./spec/**/*_spec.rb}"
-    task.fail_on_error = true
+    task.fail_on_error = false
   end
 rescue LoadError
 end
