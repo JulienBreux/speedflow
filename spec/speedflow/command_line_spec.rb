@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Speedflow::CommandLine do
   describe "#init" do
     it "should init a new project" do
