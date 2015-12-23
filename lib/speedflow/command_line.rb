@@ -12,8 +12,25 @@ module Speedflow
 
     def init
       puts "# Initializing project flow"
+=begin
+      flow = Flow.new(@project_path)
 
+      vsc = VSC.new
+      vsc.adapter = :git
+      flow.vsc = vsc
+
+      scm = SCM.new
+      scm.adapter = :github
+      flow.scm = scm
+
+      pm = PM.new
+      pm.adapter = :jira
+      flow.pm = pm
+
+      flow.serialize
       # TODO
+      return nil
+=end
     end
 
     def start

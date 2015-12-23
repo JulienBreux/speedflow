@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
   spec.homepage           = "https://JulienBreux.github.io/speedflow"
   spec.license            = "MIT"
 
-  spec.files              = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
+  spec.files              = Dir["LICENSE", "readme.md", "version", "lib/**/*", "bin/**/*"]
   spec.test_files         = spec.files.grep(/^spec/)
   spec.require_paths      = ["lib"]
   spec.bindir             = "bin"
