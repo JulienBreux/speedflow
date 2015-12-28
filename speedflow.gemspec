@@ -18,10 +18,11 @@ Gem::Specification.new do |spec|
   spec.test_files         = spec.files.grep(/^spec/)
   spec.require_paths      = ["lib"]
   spec.bindir             = "bin"
-  spec.executables        = ["speedflow"]
+  spec.executables        = ["speedflow", "sf"]
   spec.default_executable = ["speedflow"]
 
-  spec.add_dependency "trollop", "~> 2.1"
+  spec.add_dependency "commander"
+  spec.add_dependency "colorize"
 
   spec.add_development_dependency "bundler", "~> 1.11"
   spec.add_development_dependency "rake"
