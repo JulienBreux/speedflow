@@ -1,10 +1,16 @@
-[![Build Status](https://travis-ci.org/JulienBreux/speedflow.svg?branch=master)](https://travis-ci.org/JulienBreux/speedflow)
-
 # Speedflow
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/speedflow`. To experiment with that code, run `bin/console` for an interactive prompt.
+[![Build Status](https://travis-ci.org/JulienBreux/speedflow.svg?branch=master)](https://travis-ci.org/JulienBreux/speedflow)
+[![Gem Version](https://badge.fury.io/rb/speedflow.svg)](https://badge.fury.io/rb/speedflow)
+[![Code Climate](https://codeclimate.com/github/JulienBreux/speedflow/badges/gpa.svg)](https://codeclimate.com/github/JulienBreux/speedflow)
+[![Test Coverage](https://codeclimate.com/github/JulienBreux/speedflow/badges/coverage.svg)](https://codeclimate.com/github/JulienBreux/speedflow/coverage)
+[![Inline docs](http://inch-ci.org/github/JulienBreux/speedflow.svg?branch=master)](http://inch-ci.org/github/JulienBreux/speedflow)
 
-TODO: Delete this and the text above, and describe your gem
+## Description
+
+Welcome to Speedflow.
+Speedflow was designed to ease the hard workflow and help you to keep your time.
+Speedflow provides a robust system to transform your painful workflow in a sweet workflow.
 
 ## Installation
 
@@ -28,8 +34,14 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/speedflow. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/JulienBreux/speedflow. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
 
+
+## The Core Speedflow Team
+
+* [Julien Breux](https://github.com/JulienBreux) - Author
+
+_For a list of people who have contributed to the codebase, see [GitHub's list of contributors](https://github.com/JulienBreux/speedflow/contributors)._
 
 ## License
 
