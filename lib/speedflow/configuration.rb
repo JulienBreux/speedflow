@@ -6,12 +6,12 @@ module Speedflow
 
     attr_accessor :project_path, :settings
 
-    @FILENAME = ".sf.yml"
+    @filename = ".sf.yml"
     @project_path = "."
     @settings = {}
 
     def load!(options = {})
-      newsets = YAML::load_file(@project_path+"/"+@FILENAME).deep_symbolize
+      newsets = YAML::load_file(@project_path+"/"+@filename).deep_symbolize
       if options[:env] && newsets[options[:env].to_sym]
         newsets = newsets[options[:env].to_sym]
       end
@@ -19,14 +19,13 @@ module Speedflow
     end
 
     def save!
-      settings = Speedflow::Utils.deep_stringify_keys(@settings).to_yaml.gsub("---\n", '')
-      File.open(@project_path+"/"+@FILENAME, 'w') do |file|
-        file.write settings
+      File.open(@project_path+"/"+@filename, 'w') do |file|
+        file.write @settings.deep_stringify_keys.to_yaml.gsub("---\n", '')
       end
     end
 
     def exists?
-      File.exist?(@project_path+"/"+@FILENAME)
+      File.exist?(@project_path+"/"+@filename)
     end
 
     def deep_merge!(target, data)

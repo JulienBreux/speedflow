@@ -1,7 +1,8 @@
+require "active_support/core_ext/string"
+require "active_support/core_ext/hash"
 require "speedflow/version"
-require "speedflow/utils"
 require "speedflow/configuration"
 require "speedflow/command"
-
-module Speedflow
-end
+require "speedflow/commands/abstract"
+require "speedflow/commands/default"
+require "speedflow/commands/init"

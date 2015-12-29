@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
   spec.license            = "MIT"
 
   spec.files              = Dir["LICENSE", "readme.md", "version", "lib/**/*", "bin/**/*"]
-  spec.test_files         = spec.files.grep(/^spec/)
+  spec.test_files         = `git ls-files -- {test,spec,features}/*`.split("\n")
   spec.require_paths      = ["lib"]
   spec.bindir             = "bin"
   spec.executables        = ["speedflow", "sf"]
@@ -23,6 +23,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "commander"
   spec.add_dependency "colorize"
+  spec.add_dependency "activesupport"
 
   spec.add_development_dependency "bundler", "~> 1.11"
   spec.add_development_dependency "rake"
