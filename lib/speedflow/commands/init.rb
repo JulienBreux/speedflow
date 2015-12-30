@@ -5,31 +5,31 @@ module Speedflow
         configuration = Speedflow::Configuration
         configuration.project_path = @project_path
 
+        mods = {
+          VCS: "version control system",
+          SCM: "service control manager",
+          PM: "project manager"
+        }
+
         if !configuration.exists? || options.force
-          if agree("Do you want to use a version control system? (y/n)")
-            configuration.settings[:vcs] = {
-              :adapter => @command.choose("Choose an adapter?", :git, :mercurial).to_s
-            }
-            @command.say("Ok for the VCS".colorize(:green))
-          end
-          if agree("Do you want to use a service control manager? (y/n)")
-            configuration.settings[:scm] = {
-              :adapter => @command.choose("Choose an adapter?", :github, :bitbucket).to_s
-            }
-            @command.say("Ok for the SCM".colorize(:green))
-          end
-          if agree("Do you want to use a project manager? (y/n)")
-            configuration.settings[:pm] = {
-              :adapter => @command.choose("Choose an adapter?", :jira, :trello).to_s
-            }
-            @command.say("Ok for the PM".colorize(:green))
+          mods.each do |mod, name|
+            if agree(("Do you want to use a "+name+"? (y/n)").colorize(:light_blue))
+              modObject = Object.const_get("Speedflow::"+mod.to_s).new(@command)
+              modObject.configure!
+
+              configuration.settings[mod.downcase] = modObject.to_configuration
+            end
           end
 
-          configuration.save!
+          unless configuration.settings.empty?
+            configuration.save!
 
-          @command.say("Initialized speedflow in #{@project_path}")
+            @command.say("Initialized speedflow in #{@project_path}".colorize(:light_green))
+          else
+            @command.say("Initialized speedflow canceled".colorize(:light_red))
+          end
         else
-          @command.say("Speedflow already exists in #{@project_path}")
+          @command.say("Speedflow already exists in #{@project_path}".colorize(:light_red))
         end
       end
     end

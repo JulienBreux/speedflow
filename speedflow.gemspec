@@ -14,8 +14,8 @@ Gem::Specification.new do |spec|
   spec.homepage           = "https://JulienBreux.github.io/speedflow"
   spec.license            = "MIT"
 
-  spec.files              = Dir["LICENSE", "readme.md", "version", "lib/**/*", "bin/**/*"]
-  spec.test_files         = `git ls-files -- {test,spec,features}/*`.split("\n")
+  spec.files              = Dir["LICENSE", "readme.md", "version", "lib/**/*", "bin/**/*", "test/**/*"]
+  spec.test_files         = spec.files.grep(/^test/)
   spec.require_paths      = ["lib"]
   spec.bindir             = "bin"
   spec.executables        = ["speedflow", "sf"]
@@ -27,8 +27,9 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.11"
   spec.add_development_dependency "rake"
-  spec.add_development_dependency "rspec"
-  spec.add_development_dependency "simplecov"
-  spec.add_development_dependency "simplecov-json"
-  spec.add_development_dependency "simplecov-rcov"
+  spec.add_development_dependency "minitest", "~> 5.8"
+  #spec.add_development_dependency "rspec"
+  #spec.add_development_dependency "simplecov"
+  #spec.add_development_dependency "simplecov-json"
+  #spec.add_development_dependency "simplecov-rcov"
 end
