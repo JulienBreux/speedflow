@@ -6,7 +6,7 @@ module Speedflow
 
     attr_accessor :project_path, :settings
 
-    @filename = ".sf.yml"
+    @filename = ".speedflow.yml"
     @project_path = "."
     @settings = {}
 
