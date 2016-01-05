@@ -10,7 +10,9 @@ module Speedflow
           @command.choose do |menu|
             menu.prompt = "Workflow?".colorize(:light_blue)
             menu.choices(*WORKFLOWS) do |workflow|
-              @settings[:workflow] = workflow.to_s
+              unless DEFAULT_WORKFLOW == workflow
+                @settings[:workflow] = workflow.to_s
+              end
             end
             menu.default = DEFAULT_WORKFLOW
           end

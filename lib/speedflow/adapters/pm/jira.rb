@@ -12,7 +12,9 @@ module Speedflow
           port = @command.ask("Port?".colorize(:light_blue), Integer) do |q|
             q.default = DEFAULT_PORT
           end
-          @settings[:port] = port.to_i
+          unless DEFAULT_PORT == port.to_i
+            @settings[:port] = port.to_i
+          end
 
           project = @command.ask("Project ID?".colorize(:light_blue), String)
           @settings[:project] = project.to_s
