@@ -9,8 +9,8 @@ module Speedflow
           @settings[:project] = @command.ask("Project ID?".colorize(:light_blue), String)
 
           @command.say("Think to add this following lines to your ~/.Xrc file:".colorize(:light_blue))
-          @command.say("export JIRA_USER=Username".colorize(:grey))
-          @command.say("export JIRA_USER=Username".colorize(:grey))
+          @command.say("export JIRA_USER=username".colorize(:grey))
+          @command.say("export JIRA_PASSWORD=password".colorize(:grey))
         end
       end
     end
