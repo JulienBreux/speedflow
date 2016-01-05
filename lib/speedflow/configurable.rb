@@ -1,7 +1,8 @@
 module Speedflow
   class Configurable
-    def initialize(command)
+    def initialize(command, project_path)
       @command = command
+      @project_path = project_path
       @settings = {}
       @klass = self.class.name.demodulize
     end
@@ -12,7 +13,7 @@ module Speedflow
         menu.prompt = "Please choose your an adapter?".colorize(:light_blue)
         menu.choices(*adapters) do |adapter|
           adapterClass = ["Speedflow","Adapters", @klass, adapter.capitalize].join("::")
-          adapterObject = Object.const_get(adapterClass).new(@command)
+          adapterObject = Object.const_get(adapterClass).new(@command, @project_path)
           adapterObject.configure!
 
           @settings[:adapter] = adapter.to_s

@@ -6,15 +6,15 @@ module Speedflow
         configuration.project_path = @project_path
 
         mods = {
-          VCS: "version control system",
           SCM: "service control manager",
+          VCS: "version control system",
           PM: "project manager"
         }
 
         if !configuration.exists? || options.force
           mods.each do |mod, name|
             if agree(("Do you want to use a "+name+"? (y/n)").colorize(:light_blue))
-              modObject = Object.const_get("Speedflow::"+mod.to_s).new(@command)
+              modObject = Object.const_get("Speedflow::"+mod.to_s).new(@command, @project_path)
               modObject.configure!
 
               configuration.settings[mod.downcase] = modObject.to_configuration
