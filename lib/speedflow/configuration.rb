@@ -11,7 +11,7 @@ module Speedflow
     @settings = {}
 
     def load!(options = {})
-      newsets = YAML::load_file(@project_path+"/"+@filename).deep_symbolize
+      newsets = YAML::load_file(@project_path+"/"+@filename).deep_symbolize_keys
       if options[:env] && newsets[options[:env].to_sym]
         newsets = newsets[options[:env].to_sym]
       end
