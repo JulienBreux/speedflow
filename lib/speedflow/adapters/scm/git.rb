@@ -8,7 +8,7 @@ module Speedflow
         # Configure adapter
         def configure!
           @command.choose do |menu|
-            menu.prompt = "Workflow?".colorize(:light_blue)
+            menu.header = "Workflow?".colorize(:light_blue)
             menu.choices(*WORKFLOWS) do |workflow|
               unless DEFAULT_WORKFLOW == workflow
                 @settings[:workflow] = workflow.to_s

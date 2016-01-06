@@ -19,6 +19,12 @@ module Speedflow
           project = @command.ask("Project ID?".colorize(:light_blue), String)
           @settings[:project] = project.to_s
 
+          # TODO Fix response
+          # TODO Add abstract
+          issue_create = @command.agree("Create issue in Jira? (y/n)".colorize(:light_blue))
+          @settings[:create_issue] = issue_create
+
+          # TODO Add notice method
           @command.say("Think to add this following lines to your ~/.Xrc file:".colorize(:light_blue))
           @command.say("export JIRA_USER=username".colorize(:grey))
           @command.say("export JIRA_PASSWORD=password".colorize(:grey))

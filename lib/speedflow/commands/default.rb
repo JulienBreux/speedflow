@@ -7,7 +7,8 @@ module Speedflow
         help << <<-EOS.strip_heredoc
         Usage: speedflow <command> [options]
         The most commonly used speedflow commands are:
-           init|i        Initilize your project flow
+           init or i         Initilize your project flow
+           new  or n         New issue
         See `speedflow --help` for more information.
         Or see `speedflow <command> --help` for more information on a specific command.
         EOS

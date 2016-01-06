@@ -18,13 +18,21 @@ Speedflow provides a robust system to transform your painful workflow in a sweet
 
 ## Usage
 
-### Initialize a new project flow
+### Initialize your flow
 
     $ speedflow init
 
 or
 
     $ sf i
+
+### New issue
+
+    $ speedflow new --title="My crazy new issue"
+
+or
+
+    $ sf n -t "My crazy new issue"
 
 ## Development
 

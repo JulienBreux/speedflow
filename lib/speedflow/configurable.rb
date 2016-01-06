@@ -10,7 +10,7 @@ module Speedflow
     # Configure object
     def configure!
       @command.choose do |menu|
-        menu.prompt = "Please choose your an adapter?".colorize(:light_blue)
+        menu.header = "Please choose your an adapter?".colorize(:light_blue)
         menu.choices(*adapters) do |adapter|
           adapterClass = ["Speedflow","Adapters", @klass, adapter.capitalize].join("::")
           adapterObject = Object.const_get(adapterClass).new(@command, @project_path)
