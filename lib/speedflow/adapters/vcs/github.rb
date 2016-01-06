@@ -6,12 +6,15 @@ module Speedflow
       class Github < Speedflow::Configurable
         # Configure adapter
         def configure!
-          repository = @command.ask("Repository?".colorize(:light_blue), String) do |q|
-            # TODO Check GIT repo!
+          @command.choose do |menu|
             git = Git.open(@project_path)
-            q.default = git.remote(:origin).url
+
+            menu.prompt = "Remote?".colorize(:light_blue)
+            menu.choices(*git.remotes) do |remote|
+              @settings[:remote] = remote.to_s
+            end
+            menu.default = git.remotes.first.name
           end
-          @settings[:repository] = repository.to_s
         end
       end
     end
