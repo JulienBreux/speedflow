@@ -21,6 +21,7 @@ Gem::Specification.new do |spec|
   spec.executables        = ["speedflow", "sf"]
   spec.default_executable = ["speedflow"]
 
+  spec.add_dependency "require_all", "~> 1.3"
   spec.add_dependency "commander"
   spec.add_dependency "colorize"
   spec.add_dependency "activesupport"
