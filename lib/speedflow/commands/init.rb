@@ -2,32 +2,27 @@ module Speedflow
   module Commands
     class Init < Speedflow::Commands::Abstract
       def call(args, options)
-        mods = {
-          PM: "project manager",
-          SCM: "service control manager",
-          VCS: "version control system"
-        }
-
         if !@configuration.exists? || options.force
-          mods.each do |mod, name|
-            if agree(("Do you want to use a "+name+"? (y/n)").colorize(:light_blue))
-              modObject = Object.const_get("Speedflow::"+mod.to_s).new(@command, @project_path)
-              modObject.configure!
-
-              @configuration.settings[mod.downcase] = modObject.to_configuration
+          # TODO Convert to block
+          Speedflow::Mod.mods.each do |ref|
+            mod = Speedflow::Mod.instance(ref.first, @configuration.settings[ref.first] || {}, @project_path)
+            if agree(("Do you want to use a "+mod.name+"? (y/n)").colorize(:light_blue))
+              mod.ask_configuration
+              @configuration.settings[ref.first] = mod.settings
             end
           end
 
           unless @configuration.settings.empty?
-            @configuration.save!
+            @configuration.save
 
-            @command.say("Initialized speedflow in #{@project_path}".colorize(:light_green))
+            say("Initialized speedflow in #{@project_path}".colorize(:light_green))
           else
-            @command.say("Initialized speedflow canceled".colorize(:light_red))
+            say("Initialized speedflow canceled".colorize(:light_red))
           end
         else
-          @command.say("Speedflow already exists in #{@project_path}".colorize(:light_red))
+          say("Speedflow already exists in #{@project_path}".colorize(:light_red))
         end
+
       end
     end
   end

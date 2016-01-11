@@ -12,7 +12,7 @@ module Speedflow
         See `speedflow --help` for more information.
         Or see `speedflow <command> --help` for more information on a specific command.
         EOS
-        @command.say(help)
+        say(help)
       end
     end
   end

@@ -6,6 +6,7 @@ module Speedflow
         @project_path = project_path
         @command = command
         @configuration = configuration
+        @configuration.load
       end
     end
   end

@@ -4,11 +4,30 @@ module Speedflow
       def call(args, options)
         # TODO BEGIN - Move to an option helper
         unless options.subject
-          @command.say("Missing options: subject".colorize(:light_red))
+          say("Missing options: subject".colorize(:light_red))
           exit
         end
         # TODO END - Move to an option helper
 
+        success = true
+
+        # Project Manager part
+        if @configuration.settings[:PM]
+          say("Project manager ".colorize(:light_blue))
+
+          #adapter = Speedflow::Adapter.instance(:pm, settings[:pm])
+          #issue_id = adapter.create(subject: options.subject)
+        end
+
+        # Service control manager part
+        if @configuration.settings[:SCM]
+          say("Service control manager".colorize(:light_blue))
+        end
+
+        # Version control system part
+        if @configuration.settings[:VCS]
+          say("Version control system ".colorize(:light_blue))
+        end
 =begin
 Check if PM is used
   Load adapter

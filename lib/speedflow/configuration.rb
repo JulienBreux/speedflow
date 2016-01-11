@@ -10,7 +10,7 @@ module Speedflow
     @project_path = "."
     @settings = {}
 
-    def load!(options = {})
+    def load(options = {})
       newsets = YAML::load_file(@project_path+"/"+@filename).deep_symbolize_keys
       if options[:env] && newsets[options[:env].to_sym]
         newsets = newsets[options[:env].to_sym]
@@ -18,7 +18,7 @@ module Speedflow
       deep_merge!(@settings, newsets)
     end
 
-    def save!
+    def save
       File.open(@project_path+"/"+@filename, 'w') do |file|
         file.write @settings.deep_stringify_keys.to_yaml.gsub("---\n", '')
       end
