@@ -13,15 +13,28 @@ module Speedflow
 
         # Project Manager part
         if @configuration.settings[:PM]
-          say("Project manager ".colorize(:light_blue))
+          say("Project manager".colorize(:light_blue))
 
-          #adapter = Speedflow::Adapter.instance(:pm, settings[:pm])
-          #issue_id = adapter.create(subject: options.subject)
+          mod = Speedflow::Mod.instance(:PM, @configuration.settings[:PM], @project_path)
+          adapter = mod.adapter(@configuration.settings[:PM][:adapter])
+
+          issue = adapter.create_issue(options.subject)
+          if issue
+            say("Issue created: #{issue["key"]}".colorize(:light_green))
+          end
         end
 
         # Service control manager part
         if @configuration.settings[:SCM]
           say("Service control manager".colorize(:light_blue))
+
+          mod = Speedflow::Mod.instance(:SCM, @configuration.settings[:SCM], @project_path)
+          adapter = mod.adapter(@configuration.settings[:SCM][:adapter])
+
+          branch = adapter.create_branch(options.subject, issue["key"] || nil)
+          if branch
+            say("Local branch created: #{branch[:name]}".colorize(:light_green))
+          end
         end
 
         # Version control system part
