@@ -21,12 +21,17 @@ Gem::Specification.new do |spec|
   spec.executables        = ["speedflow", "sf"]
   spec.default_executable = ["speedflow"]
 
+  # Core dependencies
   spec.add_dependency "require_all", "~> 1.3"
   spec.add_dependency "commander"
   spec.add_dependency "colorize"
   spec.add_dependency "activesupport"
-  spec.add_dependency "git", "~> 1.2"
 
+  # Adapters dependencies
+  spec.add_dependency "git", "~> 1.2"
+  spec.add_dependency "github_api", "~> 0.13.1"
+
+  # Development dependencies
   spec.add_development_dependency "bundler", "~> 1.11"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "minitest", "~> 5.8"

@@ -5,6 +5,7 @@ require "active_support/core_ext/hash"
 require "active_support/inflector"
 
 require "git"
+require "github_api"
 
 require_rel "speedflow/*.rb"
 require_rel "speedflow/commands/*.rb"

@@ -16,16 +16,17 @@ module Speedflow
 
           # TODO Move
           def create_branch(subject, issue_key)
-            workflow = @settings["workflow"] || "none"
+            # TODO Check settings
+
+            workflow = @settings[:workflow] || "none"
             subject = ActiveSupport::Inflector.parameterize(subject)
 
             if workflow == "none"
               branch_name = issue_key+"-"+subject
 
               git = ::Git.open(@project_path)
-              #git.branch(branch_name)
-
-              #git.push(git.remote(@settings["origin"]))
+              git.branch(branch_name).checkout
+              git.push(@settings[:remote], branch_name)
             elsif workflow == "gitflow"
 
             end

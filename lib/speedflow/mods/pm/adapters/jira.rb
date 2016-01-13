@@ -20,6 +20,7 @@ module Speedflow
 
           #TODO Manage exceptions
           def create_issue(subject, type=DEFAULT_TYPE)
+            # TODO Check settings
             data = {
               fields: {
                 project: {key: @settings[:project]},
