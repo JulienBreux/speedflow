@@ -5,7 +5,6 @@
 [![Code Climate](https://codeclimate.com/github/JulienBreux/speedflow/badges/gpa.svg)](https://codeclimate.com/github/JulienBreux/speedflow)
 [![Test Coverage](https://codeclimate.com/github/JulienBreux/speedflow/badges/coverage.svg)](https://codeclimate.com/github/JulienBreux/speedflow/coverage)
 [![Inline docs](http://inch-ci.org/github/JulienBreux/speedflow.svg?branch=master)](http://inch-ci.org/github/JulienBreux/speedflow)
-[![ZenHub] (https://raw.githubusercontent.com/ZenHubIO/support/master/zenhub-badge.png)] (https://zenhub.io)
 
 ## Description
 
@@ -69,3 +68,7 @@ _For a list of people who have contributed to the codebase, see [GitHub's list o
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+
+## Sponsor
+
+[![ZenHub] (https://raw.githubusercontent.com/ZenHubIO/support/master/zenhub-badge.png)] (https://zenhub.io)
