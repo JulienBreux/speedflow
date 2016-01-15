@@ -5,6 +5,7 @@
 [![Code Climate](https://codeclimate.com/github/JulienBreux/speedflow/badges/gpa.svg)](https://codeclimate.com/github/JulienBreux/speedflow)
 [![Test Coverage](https://codeclimate.com/github/JulienBreux/speedflow/badges/coverage.svg)](https://codeclimate.com/github/JulienBreux/speedflow/coverage)
 [![Inline docs](http://inch-ci.org/github/JulienBreux/speedflow.svg?branch=master)](http://inch-ci.org/github/JulienBreux/speedflow)
+[![ZenHub] (https://raw.githubusercontent.com/ZenHubIO/support/master/zenhub-badge.png)] (https://zenhub.io)
 
 ## Description
 
