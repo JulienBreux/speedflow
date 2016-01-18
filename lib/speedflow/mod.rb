@@ -35,7 +35,6 @@ module Speedflow
       Object.const_get(adapterClass).new(@project_path, @settings)
     end
 
-    #########
     def self.mods
       @@mods
     end
@@ -44,8 +43,9 @@ module Speedflow
       @@mods[ref] = {instance: self, ref: ref, name: name}
     end
 
-    def self.instance(ref, settings = {}, project_path)
-      @@mods[ref][:instance].new(ref, @@mods[ref][:name], settings, project_path)
+    def self.instance(ref, settings = {}, project_path, adapter_instance)
+      mod = @@mods[ref][:instance].new(ref, @@mods[ref][:name], settings[ref], project_path)
+      adapter_instance ? mod.adapter(settings[ref][:adapter]) : mod
     end
   end
 end

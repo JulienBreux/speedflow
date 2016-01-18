@@ -18,6 +18,14 @@ module Speedflow
       config = Speedflow::Configuration
       config.project_path = project_path
 
+      # Command - Review
+      command :review do |c|
+        c.syntax = specs.name.to_s+' new'
+        c.description = 'Review issue'
+        c.action(Speedflow::Commands::Review.new(specs, project_path, c, config))
+      end
+      alias_command :r, :review
+
       # Command - New
       command :new do |c|
         c.syntax = specs.name.to_s+' new'

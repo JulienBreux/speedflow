@@ -17,8 +17,6 @@ module Speedflow
           # TODO Move
           def create_branch(subject, issue_key)
             # TODO Check settings
-
-            workflow = @settings[:workflow] || "none"
             subject = ActiveSupport::Inflector.parameterize(subject)
 
             if workflow == "none"
@@ -32,6 +30,43 @@ module Speedflow
             end
 
             {name: branch_name}
+          end
+
+          def current_branch
+            git = ::Git.open(@project_path)
+            git.branches.local.find(&:current)
+          end
+
+          # TODO Move to abstract SCM adapter
+          def key_from_current_branch
+            # TODO Test format
+            current_branch.name.split("-")[0..1].join("-")
+          end
+
+          # TODO Move to abstract SCM adapter
+          def workflow
+            @settings[:workflow] || "none"
+          end
+
+          # TODO Move to abstract SCM adapter
+          def base
+            case workflow
+            when "gitflow"
+              "develop"
+            else
+              "master"
+            end
+          end
+
+          # TODO Move to abstract SCM adapter
+          def user
+            # TODO Check settings
+            remote = git.remotes(@settings[:remote])
+            p remote
+          end
+
+          def repository
+
           end
 
           def ask_configuration

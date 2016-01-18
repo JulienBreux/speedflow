@@ -9,14 +9,13 @@ module Speedflow
         end
         # TODO END - Move to an option helper
 
-        success = true
+        settings = @configuration.settings
 
         # Project Manager part
-        if @configuration.settings[:PM]
+        if settings[:PM]
           say("Project manager".colorize(:light_blue))
 
-          mod = Speedflow::Mod.instance(:PM, @configuration.settings[:PM], @project_path)
-          adapter = mod.adapter(@configuration.settings[:PM][:adapter])
+          adapter = Speedflow::Mod.instance(:PM, settings, @project_path, true)
 
           issue = adapter.create_issue(options.subject)
           if issue
@@ -25,11 +24,10 @@ module Speedflow
         end
 
         # Service control manager part
-        if @configuration.settings[:SCM]
+        if settings[:SCM]
           say("Service control manager".colorize(:light_blue))
 
-          mod = Speedflow::Mod.instance(:SCM, @configuration.settings[:SCM], @project_path)
-          adapter = mod.adapter(@configuration.settings[:SCM][:adapter])
+          adapter = Speedflow::Mod.instance(:SCM, settings, @project_path, true)
 
           branch = adapter.create_branch(options.subject, issue["key"] || nil)
           if branch

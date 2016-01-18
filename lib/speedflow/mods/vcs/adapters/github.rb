@@ -6,24 +6,32 @@ module Speedflow
           attr_accessor :settings
 
           PR_PREFIX = "[WIP] "
+          PR_DESC_SUFFIX = "Powered by Speedflow"
 
           def initialize(project_path, settings = {})
             @project_path = project_path
             @settings = settings || {}
           end
 
-          def create_pull_request(subject, issue_key, branch, prefix=PR_PREFIX)
+          def create_pull_request(scm_adapter, pm_adapter)
             # TODO Check settings
+            subject = pm_adapter.read_issue(scm_adapter.key_from_current_branch)
 
             inputs = {
               title: PR_PREFIX+subject,
-              body: "Powered by Speedflow",
-              head: branch,
-              base: "master",
+              body: PR_DESC_SUFFIX,
+              head: scm_adapter.current_branch.name,
+              base: scm_adapter.base,
               state: "open",
             }
+
+            p inputs
+            p scm_adapter.user
+            p scm_adapter.repository
+=begin
             pull_request = ::Github::Client::PullRequests.new(oauth_token: ENV["GITHUB_TOKEN"])
-            pull_request.create("JulienBreux", "speedflow-sandbox", inputs)
+            pull_request.create(scm_adapter.user, scm_adapter.repository, inputs)
+=end
           end
 
           def ask_configuration

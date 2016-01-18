@@ -42,6 +42,10 @@ module Speedflow
             JSON.parse(resp.body)
           end
 
+          def read_issue(key)
+            "TMP"
+          end
+
           def ask_configuration
             host = ask("Host?".colorize(:light_blue), String)
             @settings[:host] = host.to_s
