@@ -1,4 +1,4 @@
-# # ![Speedflow](https://raw.github.com/JulienBreux/speedflow/resources/logo.png)
+# ![Speedflow](https://raw.githubusercontent.com/JulienBreux/speedflow/master/resources/logo.png)
 
 [![Build Status](https://travis-ci.org/JulienBreux/speedflow.svg?branch=master)](https://travis-ci.org/JulienBreux/speedflow)
 [![Gem Version](https://badge.fury.io/rb/speedflow.svg)](https://badge.fury.io/rb/speedflow)
@@ -62,7 +62,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/Julien
 ## The Core Speedflow Team
 
 * [Julien Breux](https://github.com/JulienBreux) - Author
-* Emmanuel Julliot - Designer
+* [Emmanuel Julliot](https://github.com/emmanueljulliot) - Designer
 
 _For a list of people who have contributed to the codebase, see [GitHub's list of contributors](https://github.com/JulienBreux/speedflow/contributors)._
 
