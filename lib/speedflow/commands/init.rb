@@ -1,6 +1,18 @@
 module Speedflow
   module Commands
+    # Init command
     class Init < Speedflow::Commands::Abstract
+      # Public: Call command
+      #
+      # args    - Arguments.
+      # options - Options.
+      #
+      # Examples
+      #
+      #    call({}, {subject: "test"})
+      #    # => nil
+      #
+      # Returns nothing.
       def call(args, options)
         if !@configuration.exists? || options.force
           # TODO Convert to block

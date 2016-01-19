@@ -1,6 +1,18 @@
 module Speedflow
   module Commands
+    # Default command
     class Default < Speedflow::Commands::Abstract
+      # Public: Call command
+      #
+      # args    - Arguments.
+      # options - Options.
+      #
+      # Examples
+      #
+      #    call({}, {subject: "test"})
+      #    # => nil
+      #
+      # Returns nothing.
       def call(args, options)
         help = (@specs.name.to_s+" ("+@specs.version.to_s+")").capitalize().colorize(:light_blue)+" - "
         help << ("By "+@specs.authors[0]+" <"+@specs.email[0]+">\n").colorize(:light_red)

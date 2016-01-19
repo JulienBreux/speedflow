@@ -1,6 +1,18 @@
 module Speedflow
   module Commands
+    # Review command
     class Review < Speedflow::Commands::Abstract
+      # Public: Call command
+      #
+      # args    - Arguments.
+      # options - Options.
+      #
+      # Examples
+      #
+      #    call({}, {subject: "test"})
+      #    # => nil
+      #
+      # Returns nothing.
       def call(args, options)
         settings = @configuration.settings
 

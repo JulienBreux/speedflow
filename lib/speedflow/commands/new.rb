@@ -1,6 +1,18 @@
 module Speedflow
   module Commands
+    # New command
     class New < Speedflow::Commands::Abstract
+      # Public: Call command
+      #
+      # args    - Arguments.
+      # options - Options.
+      #
+      # Examples
+      #
+      #    call({}, {subject: "test"})
+      #    # => nil
+      #
+      # Returns nothing.
       def call(args, options)
         # TODO BEGIN - Move to an option helper
         unless options.subject
