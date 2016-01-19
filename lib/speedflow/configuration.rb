@@ -5,13 +5,14 @@ module Speedflow
   module Configuration
     extend self
 
-    attr_accessor :project_path, :settings
+    # @return [String] Project path
+    attr_accessor :project_path
 
-    # Default filename
+    # @return [Hash] Hash of settings
+    attr_accessor :settings
+
     @filename = '.speedflow.yml'
-    # Project path
     @project_path = '.'
-    # Default settings
     @settings = {}
 
     # Public: Load configuration file
