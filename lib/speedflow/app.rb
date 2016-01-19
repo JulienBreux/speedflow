@@ -22,7 +22,7 @@ module Speedflow
     #
     # Returns nothing.
     def run
-      define_project!
+      define_app!
       default_command!
       init_command!
       new_command!
@@ -33,7 +33,15 @@ module Speedflow
 
     protected
 
-    def define_project!
+    # Public: Define app properties
+    #
+    # Example
+    #
+    #    define_app!
+    #    # => nil
+    #
+    # Returns nothing.
+    def define_app!
       program :name, @specs.name.to_s
       program :version, @specs.version.to_s
       program :description, @specs.description.to_s

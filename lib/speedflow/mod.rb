@@ -9,6 +9,13 @@ module Speedflow
     MODS = {}
     # rubocop:enable MutableConstant
 
+    # Public: Create an instance of
+    #
+    # Examples
+    #
+    #    Mod.new(:MOD, '.', 'Test', {foo: :bar})
+    #
+    # Returns nothing.
     def initialize(ref, project_path, name = 'unknown mod', settings = {})
       @ref = ref
       @name = name
