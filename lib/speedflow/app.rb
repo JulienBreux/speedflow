@@ -6,6 +6,15 @@ module Speedflow
   class App
     include Commander::Methods
 
+    # Public: Create an instance of Speedflow::App
+    #
+    # project_path - Project path.
+    #
+    # Examples
+    #
+    #    Speedflow::App.new('.')
+    #
+    # Returns nothing.
     def initialize(project_path)
       @project_path = project_path
       @specs = Gem.loaded_specs['speedflow']
