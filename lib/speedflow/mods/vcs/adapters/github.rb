@@ -2,12 +2,25 @@ module Speedflow
   module Mods
     module VCS
       module Adapters
+        # GitHub VCS adapter
         class Github
+          # @return [Hash] Hash of settings
           attr_accessor :settings
 
           PR_PREFIX = "[WIP] "
           PR_DESC_SUFFIX = "Powered by Speedflow"
 
+          # Public: Create an instance of
+          # Speedflow::Mods::VCS::Adapters::Github
+          #
+          # project_path - Project path.
+          # settings     - Hash of mod or adapter settings.
+          #
+          # Examples
+          #
+          #    Speedflow::Mods::VCS::Adapters::Git.new('.', {})
+          #
+          # Returns nothing.
           def initialize(project_path, settings = {})
             @project_path = project_path
             @settings = settings || {}
@@ -34,6 +47,14 @@ module Speedflow
 =end
           end
 
+          # Public: Request configuration from user CLI interaction
+          #
+          # Examples
+          #
+          #    ask_configuration
+          #    # => nil
+          #
+          # Returns nothing.
           def ask_configuration
             create_issue = agree("Create issue in GitHub? (y/n)".colorize(:light_blue))
             @settings[:create_issue] = create_issue

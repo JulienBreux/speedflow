@@ -6,19 +6,42 @@ module Speedflow
         require "uri"
         require "json"
 
+        # Jira PM adapter
         class Jira
+          # @return [Hash] Hash of settings
           attr_accessor :settings
 
           DEFAULT_PORT = 443
           DEFAULT_TYPE = "Task"
           ISSUE_PATH = "rest/api/2/issue/"
 
+          # Public: Create an instance of
+          # Speedflow::Mods::PM::Adapters::Jira
+          #
+          # project_path - Project path.
+          # settings     - Hash of mod or adapter settings.
+          #
+          # Examples
+          #
+          #    Speedflow::Mods::VCS::Adapters::Git.new('.', {})
+          #
+          # Returns nothing.
           def initialize(project_path, settings = {})
             @project_path = project_path
             @settings = settings || {}
           end
 
-          #TODO Manage exceptions
+          # Public: Create issue
+          # TODO Manage exceptions
+          #
+          # subject - Subject.
+          # type    - Type of issue.
+          #
+          # Examples
+          #
+          #    create_issue('hello world', "Bug")
+          #
+          # Returns JSON of issue.
           def create_issue(subject, type=DEFAULT_TYPE)
             # TODO Check settings
             data = {
@@ -37,7 +60,7 @@ module Speedflow
             http = Net::HTTP.new(uri.host, uri.port)
             http.use_ssl = true
             #http.set_debug_output $stderr
-            resp = http.start {|http| http.request(req) }
+            resp = http.start { |http| http.request(req) }
 
             JSON.parse(resp.body)
           end
@@ -46,6 +69,14 @@ module Speedflow
             "TMP"
           end
 
+          # Public: Request configuration from user CLI interaction
+          #
+          # Examples
+          #
+          #    ask_configuration
+          #    # => nil
+          #
+          # Returns nothing.
           def ask_configuration
             host = ask("Host?".colorize(:light_blue), String)
             @settings[:host] = host.to_s
@@ -73,6 +104,15 @@ module Speedflow
 
           protected
 
+          # Public: Get url
+          # TODO Move
+          #
+          # Examples
+          #
+          #    url
+          #    # => https://xxx.com:123/
+          #
+          # Returns string of URL.
           def url
             port = @settings[:port] || DEFAULT_PORT
 
