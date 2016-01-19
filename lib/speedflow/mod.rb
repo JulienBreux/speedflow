@@ -11,6 +11,11 @@ module Speedflow
 
     # Public: Create an instance of
     #
+    # ref          - Reference of mod.
+    # project_path - Project path.
+    # name         - Mod name.
+    # settings     - Hash of mod or adapter settings.
+    #
     # Examples
     #
     #    Mod.new(:MOD, '.', 'Test', {foo: :bar})
