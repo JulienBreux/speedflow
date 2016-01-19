@@ -1,31 +1,32 @@
-require "yaml"
+require 'yaml'
 
 module Speedflow
+  # Speedflow configuration
   module Configuration
     extend self
 
     attr_accessor :project_path, :settings
 
-    @filename = ".speedflow.yml"
-    @project_path = "."
+    @filename = '.speedflow.yml'
+    @project_path = '.'
     @settings = {}
 
     def load(options = {})
-      newsets = YAML::load_file(@project_path+"/"+@filename).deep_symbolize_keys
+      new_sets = YAML::load_file("#{@project_path}/#{@filename}").deep_symbolize_keys
       if options[:env] && newsets[options[:env].to_sym]
-        newsets = newsets[options[:env].to_sym]
+        new_sets = new_sets[options[:env].to_sym]
       end
-      deep_merge!(@settings, newsets)
+      deep_merge!(@settings, new_sets)
     end
 
     def save
-      File.open(@project_path+"/"+@filename, 'w') do |file|
+      File.open("#{@project_path}/#{@filename}", 'w') do |file|
         file.write @settings.deep_stringify_keys.to_yaml.gsub("---\n", '')
       end
     end
 
     def exists?
-      File.exist?(@project_path+"/"+@filename)
+      File.exist?("#{@project_path}/#{@filename}")
     end
 
     def deep_merge!(target, data)

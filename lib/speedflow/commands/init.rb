@@ -5,7 +5,9 @@ module Speedflow
         if !@configuration.exists? || options.force
           # TODO Convert to block
           Speedflow::Mod.mods.each do |ref|
-            mod = Speedflow::Mod.instance(ref.first, @configuration.settings[ref.first] || {}, @project_path)
+            mod = Speedflow::Mod.instance(
+              ref.first,  @project_path, false, @configuration.settings || {}
+            )
             if agree(("Do you want to use a "+mod.name+"? (y/n)").colorize(:light_blue))
               mod.ask_configuration
               @configuration.settings[ref.first] = mod.settings
@@ -22,7 +24,6 @@ module Speedflow
         else
           say("Speedflow already exists in #{@project_path}".colorize(:light_red))
         end
-
       end
     end
   end

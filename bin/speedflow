@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 
-require "speedflow"
+require 'speedflow'
 
 # Kill exiting error
-Signal.trap("SIGINT") { exit 130 }
+Signal.trap('SIGINT') { exit 130 }
 
-Speedflow::Command.new.run(File.expand_path("."))
+Speedflow::App.new(File.expand_path('.')).run
