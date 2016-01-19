@@ -39,7 +39,7 @@ module Speedflow
           #
           # Examples
           #
-          #    create_issue('hello world', "Bug")
+          #    create_issue('hello world', 'Bug')
           #
           # Returns JSON of issue.
           def create_issue(subject, type=DEFAULT_TYPE)
@@ -65,6 +65,16 @@ module Speedflow
             JSON.parse(resp.body)
           end
 
+          # Public: Read issue
+          # TODO In progress
+          #
+          # key - Key of issue.
+          #
+          # Examples
+          #
+          #    read_issue('SF-01')
+          #
+          # Returns JSON of issue.
           def read_issue(key)
             "TMP"
           end

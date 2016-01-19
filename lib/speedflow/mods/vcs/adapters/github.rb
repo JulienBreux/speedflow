@@ -26,9 +26,24 @@ module Speedflow
             @settings = settings || {}
           end
 
+          # Public: Create pull request
+          #
+          # scm_adapter - Speedflow::Mods::SCM::Adapters::<adapter>.new
+          # pm_adapter  - Speedflow::Mods::PM::Adapters::<adapter>.new
+          #
+          # Examples
+          #
+          #    create_pull_request(
+          #         Speedflow::Mods::SCM::Adapters::<adapter>.new,
+          #         Speedflow::Mods::PM::Adapters::<adapter>.new
+          #    )
+          #
+          # Returns nothing.
           def create_pull_request(scm_adapter, pm_adapter)
             # TODO Check settings
-            subject = pm_adapter.read_issue(scm_adapter.key_from_current_branch)
+            subject = pm_adapter.read_issue(
+              scm_adapter.key_from_current_branch
+            )
 
             inputs = {
               title: PR_PREFIX+subject,
