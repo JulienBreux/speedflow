@@ -14,34 +14,32 @@ module Speedflow
       #
       # Returns nothing.
       def call(_args, options)
-        # TODO BEGIN - Move to an option helper
+        # TODO: BEGIN - Move to an option helper
         unless options.subject
-          say("Missing options: subject".colorize(:light_red))
+          say('Missing options: subject'.colorize(:light_red))
           exit
         end
-        # TODO END - Move to an option helper
+        # TODO: END - Move to an option helper
 
         settings = @configuration.settings
 
         # Project Manager part
         if settings[:PM]
-          say("Project manager".colorize(:light_blue))
+          say('Project manager'.colorize(:light_blue))
 
           adapter = Speedflow::Mod.instance(:PM, settings, @project_path, true)
 
           issue = adapter.create_issue(options.subject)
-          if issue
-            say("Issue created: #{issue["key"]}".colorize(:light_green))
-          end
+          say("Issue created: #{issue['key']}".colorize(:light_green)) if issue
         end
 
         # Service control manager part
         if settings[:SCM]
-          say("Service control manager".colorize(:light_blue))
+          say('Service control manager'.colorize(:light_blue))
 
           adapter = Speedflow::Mod.instance(:SCM, settings, @project_path, true)
 
-          branch = adapter.create_branch(options.subject, issue["key"] || nil)
+          branch = adapter.create_branch(options.subject, issue['key'] || nil)
           if branch
             say("Local branch created: #{branch[:name]}".colorize(:light_green))
           end

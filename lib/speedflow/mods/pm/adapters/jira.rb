@@ -1,6 +1,7 @@
 module Speedflow
   module Mods
     module PM
+      # Project manager adapters
       module Adapters
         require 'net/http'
         require 'uri'
@@ -9,8 +10,8 @@ module Speedflow
         # Jira PM adapter
         class Jira < Speedflow::Adapter
           DEFAULT_PORT = 443
-          DEFAULT_TYPE = 'Task'
-          ISSUE_PATH = 'rest/api/2/issue/'
+          DEFAULT_TYPE = 'Task'.freeze
+          ISSUE_PATH = 'rest/api/2/issue/'.freeze
 
           # Public: Create issue
           # TODO Manage exceptions
@@ -23,25 +24,28 @@ module Speedflow
           #    create_issue('hello world', 'Bug')
           #
           # Returns JSON of issue.
-          def create_issue(subject, type=DEFAULT_TYPE)
-            # TODO Check settings
+          def create_issue(subject, type = DEFAULT_TYPE)
+            # TODO: Check settings
             data = {
               fields: {
-                project: {key: @settings[:project]},
+                project: { key: @settings[:project] },
                 summary: subject,
                 issuetype: { name: type }
               }
             }
 
-            uri = URI(url+ISSUE_PATH)
-            req = Net::HTTP::Post.new(uri.path, initheader: {'Content-Type' =>'application/json'})
-            req.basic_auth(ENV["JIRA_USER"], ENV["JIRA_PASSWORD"])
+            uri = URI(url + ISSUE_PATH)
+            req = Net::HTTP::Post.new(
+              uri.path,
+              initheader: { 'Content-Type' => 'application/json' }
+            )
+            req.basic_auth(ENV['JIRA_USER'], ENV['JIRA_PASSWORD'])
             req.body = data.to_json
 
-            http = Net::HTTP.new(uri.host, uri.port)
-            http.use_ssl = true
-            #http.set_debug_output $stderr
-            resp = http.start { |http| http.request(req) }
+            net = Net::HTTP.new(uri.host, uri.port)
+            net.use_ssl = true
+            # http.set_debug_output $stderr
+            resp = net.start { |http| http.request(req) }
 
             JSON.parse(resp.body)
           end
@@ -56,8 +60,8 @@ module Speedflow
           #    read_issue('SF-01')
           #
           # Returns JSON of issue.
-          def read_issue(key)
-            "TMP"
+          def read_issue(_key)
+            'TMP'
           end
 
           # Public: Request configuration from user CLI interaction
@@ -77,24 +81,26 @@ module Speedflow
             port = ask('Port?'.colorize(:light_blue), Integer) do |q|
               q.default = DEFAULT_PORT.to_s
             end
-            unless DEFAULT_PORT == port.to_i
-              set(:port, port.to_i)
-            end
+            set(:port, port.to_i) unless DEFAULT_PORT == port.to_i
 
             project = ask('Project ID?'.colorize(:light_blue), String) do |q|
               q.default = get(:project)
             end
             set(:project, project.to_s)
 
-            # TODO Fix response
+            # TODO: Fix response
             # TODO Add abstract
-            issue_create = agree('Create issue in Jira? (y/n)'.colorize(:light_blue))
+            question = 'Create issue in Jira? (y/n)'
+            issue_create = agree(question.colorize(:light_blue))
             set(:create_issue, issue_create)
 
-            # TODO Add notice method
-            say('Think to add this following lines to your ~/.Xrc file:'.colorize(color: :black, background: :light_blue))
-            say('export JIRA_USER=username'.colorize(:grey))
-            say('export JIRA_PASSWORD=password'.colorize(:grey))
+            # TODO: Add notice method
+            notice = 'Think to add this following lines to your ~/.Xrc file:'
+            say(notice.colorize(color: :black, background: :light_blue))
+            notice = 'export JIRA_USER=username'
+            say(notice.colorize(:grey))
+            notice = 'export JIRA_PASSWORD=password'
+            say(notice.colorize(:grey))
           end
 
           protected
@@ -111,10 +117,10 @@ module Speedflow
           def url
             port = @settings[:port] || DEFAULT_PORT
 
-            site = "http"+(port == 443 ? "s" : "")+"://"
+            site = 'http' + (port == 443 ? 's' : '') + '://'
             site << @settings[:host]
-            site << (":"+port.to_s) unless 80 == @settings[:port]
-            site << "/"
+            site << (':' + port.to_s) unless 80 == @settings[:port]
+            site << '/'
             site
           end
         end

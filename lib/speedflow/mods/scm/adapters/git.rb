@@ -18,7 +18,7 @@ module Speedflow
           #
           # Returns hash of branch.
           def create_branch(subject, issue_key)
-            # TODO Check settings
+            # TODO: Check settings
             subject = ActiveSupport::Inflector.parameterize(subject)
             branch_name =  "#{issue_key}-#{subject}"
 
@@ -30,7 +30,7 @@ module Speedflow
               branch_name = "features/#{branch_name}"
             end
 
-            {name: branch_name}
+            { name: branch_name }
           end
 
           # Public: Get current branch
@@ -57,7 +57,7 @@ module Speedflow
           #
           # Returns string of key.
           def key_from_current_branch
-            # TODO Test format
+            # TODO: Test format
             current_branch.name.split('-')[0..1].join('-')
           end
 
@@ -71,7 +71,7 @@ module Speedflow
           #
           # Returns string of key.
           def workflow
-            @settings[:workflow] || "none"
+            @settings[:workflow] || 'none'
           end
 
           # Public: Get base
@@ -85,10 +85,10 @@ module Speedflow
           # Returns String of base branch.
           def base
             case workflow
-            when "gitflow"
-              "develop"
+            when 'gitflow'
+              'develop'
             else
-              "master"
+              'master'
             end
           end
 
@@ -102,7 +102,7 @@ module Speedflow
           #
           # Returns string of user.
           def user
-            # TODO Check settings
+            # TODO: Check settings
             remote = git.remotes(@settings[:remote])
             p remote
           end
@@ -117,18 +117,30 @@ module Speedflow
           #
           # Returns string repository.
           def repository
-
           end
 
           # Public: Request configuration from user CLI interaction
           #
           # Examples
           #
-          #    ask_configuration
+          #    ask_config!
           #    # => nil
           #
           # Returns nothing.
           def ask_config!
+            ask_remote!
+            ask_workflow!
+          end
+
+          # Public: Request remote
+          #
+          # Examples
+          #
+          #    ask_remote!
+          #    # => nil
+          #
+          # Returns nothing.
+          def ask_remote!
             choose do |menu|
               git = ::Git.open(@config.path)
 
@@ -138,7 +150,17 @@ module Speedflow
               end
               menu.default = git.remotes.first.name
             end
+          end
 
+          # Public: Request workflow
+          #
+          # Examples
+          #
+          #    ask_workflow!!
+          #    # => nil
+          #
+          # Returns nothing.
+          def ask_workflow!
             choose do |menu|
               menu.header = 'Workflow?'.colorize(:light_blue)
               menu.choices(*WORKFLOWS) do |workflow|

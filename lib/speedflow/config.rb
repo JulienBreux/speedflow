@@ -4,7 +4,7 @@ require 'erb'
 module Speedflow
   # Speedflow configuration
   class Config
-    FILENAME = '.speedflow.yml'
+    FILENAME = '.speedflow.yml'.freeze
 
     # @return [String] String of path
     attr_accessor :path
@@ -22,7 +22,7 @@ module Speedflow
     #    Speedflow::Configuration.new('.')
     #
     # Returns nothing.
-    def initialize(path, settings=nil)
+    def initialize(path, settings = nil)
       @path = path
       @settings = settings || {}
     end

@@ -16,7 +16,8 @@ module Speedflow
       def call(_args, options)
         if !@config.exists? || options.force
           Speedflow::Mod.mods(@config) do |mod|
-            if agree(("Do you want to use a #{mod.name}? (y/n)").colorize(:light_blue))
+            notice = "Do you want to use a #{mod.name}? (y/n)"
+            if agree(notice.colorize(:light_blue))
               mod.ask_config!
             else
               @config.remove_key!(mod.id)
@@ -26,12 +27,14 @@ module Speedflow
           unless @config.empty?
             @config.save
 
-            say("Initialized speedflow in #{@config.path}".colorize(:light_green))
+            notice = "Initialized speedflow in #{@config.path}"
+            say(notice.colorize(:light_green))
           else
             say('Initialized speedflow canceled'.colorize(:light_red))
           end
         else
-          say("Speedflow already exists in #{@config.path}".colorize(:light_red))
+          notice = "Speedflow already exists in #{@config.path}"
+          say(notice.colorize(:light_red))
         end
       end
     end

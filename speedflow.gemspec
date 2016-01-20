@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
   spec.test_files         = spec.files.grep(/^test/)
   spec.require_paths      = ['lib']
   spec.bindir             = 'bin'
-  spec.executables        = %w('speedflow', 'sf')
+  spec.executables        = %w(speedflow sf)
   spec.default_executable = ['speedflow']
 
   # Core dependencies
