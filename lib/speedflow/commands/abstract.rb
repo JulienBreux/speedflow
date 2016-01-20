@@ -2,30 +2,25 @@ module Speedflow
   module Commands
     # Abstract command class
     class Abstract
-
       # Public: Create an instance of Speedflow::App
       #
-      # specs         - Gem.loaded_specs.
-      # project_path  - Project path.
-      # command       - Command.
-      # configuration - Speedflow::Configuration
+      # specs        - Gem.loaded_specs.
+      # config       - Speedflow::Configuration
+      # command      - Command.
       #
       # Examples
       #
       #    Speedflow::Commands::<Command>.new(
       #        Gem.loaded_specs,
-      #        '.',
+      #        Speedflow::Config.load(PROJECT_PATH)
       #        command,
-      #        Speedflow::Configuration
       #    )
       #
       # Returns nothing.
-      def initialize(specs, project_path, command, configuration)
+      def initialize(specs, config, command)
         @specs = specs
-        @project_path = project_path
+        @config = config
         @command = command
-        @configuration = configuration
-        @configuration.load
       end
     end
   end

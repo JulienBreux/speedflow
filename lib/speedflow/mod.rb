@@ -1,9 +1,14 @@
 module Speedflow
   # Manage mod
   class Mod
-    # Public: Gets/Sets the Symbol of module reference,
-    # the String name of the mod, the Hash of settings.
-    attr_accessor :ref, :name, :settings
+    # Public: Gets/Sets the Symbol of mod id
+    attr_accessor :id
+
+    # Public: Gets/Sets the String name of the mod
+    attr_accessor :name
+
+    # Public: Gets/Sets the config object
+    attr_accessor :config
 
     # rubocop:disable MutableConstant
     MODS = {}
@@ -11,21 +16,19 @@ module Speedflow
 
     # Public: Create an instance of Speedflow::Mod
     #
-    # ref          - Reference of mod.
-    # project_path - Project path.
-    # name         - Mod name.
-    # settings     - Hash of mod or adapter settings.
+    # id     - Mod ID.
+    # config - Config.
+    # name   - Mod name.
     #
     # Examples
     #
-    #    Speedflow::Mod.new(:MOD, '.', 'Test', {foo: :bar})
+    #    Speedflow::Mod.new(:MOD, <Speedflow::Config>, 'Test')
     #
     # Returns nothing.
-    def initialize(ref, project_path, name = 'unknown mod', settings = {})
-      @ref = ref
+    def initialize(id, config, name = 'unknown mod')
+      @id = id
       @name = name
-      @settings = settings
-      @project_path = project_path
+      @config = config
     end
 
     # Public: Request configuration from user CLI interaction
@@ -36,14 +39,11 @@ module Speedflow
     #    # => nil
     #
     # Returns nothing.
-    def ask_configuration
+    def ask_config!
       Kernel.choose do |menu|
         menu.header = 'Please choose your an adapter?'.colorize(:light_blue)
         menu.choices(*adapters) do |adapter_name|
-          adapter(adapter_name).ask_configuration
-
-          @settings[:adapter] = adapter_name
-          @settings.merge(adapter(adapter_name).settings)
+          adapter(adapter_name).ask_config!
         end
       end
     end
@@ -57,7 +57,7 @@ module Speedflow
     #
     # Returns array of adapters string.
     def adapters
-      path = [File.dirname(__FILE__), 'mods', @ref, 'adapters', '[!adapter]*']
+      path = [File.dirname(__FILE__), 'mods', @id, 'adapters', '[!adapter]*']
       Dir[path.join('/')].map { |f| File.basename(f).split('.').first }
     end
 
@@ -73,9 +73,9 @@ module Speedflow
     # Returns adapter object.
     def adapter(adapter)
       adapter_class = [
-        'Speedflow', 'Mods', @ref, 'Adapters', adapter.capitalize
+        'Speedflow', 'Mods', @id, 'Adapters', adapter.capitalize
       ].join('::')
-      Object.const_get(adapter_class).new(@project_path, @settings)
+      Object.const_get(adapter_class).new(@id, @config)
     end
 
     # Public: Register mod
@@ -89,13 +89,17 @@ module Speedflow
     #    # => {}
     #
     # Returns hash of mods.
-    def self.mods
-      MODS
+    def self.mods(config)
+      MODS.each do |id, meta|
+        yield(
+          meta[:instance].new(meta[:id], config, meta[:name])
+        )
+      end
     end
 
     # Public: Register mod
     #
-    # ref  - Reference of mod.
+    # id   - Mod ID.
     # name - Mod name.
     #
     # Examples
@@ -104,8 +108,8 @@ module Speedflow
     #    # => nil
     #
     # Returns nothing.
-    def self.register(ref, name)
-      MODS[ref] = { instance: self, ref: ref, name: name }
+    def self.register(id, name)
+      MODS[id] = { instance: self, id: id, name: name }
     end
 
     # Public: Get mod or mod adapter instance

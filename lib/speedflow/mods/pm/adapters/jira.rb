@@ -2,34 +2,15 @@ module Speedflow
   module Mods
     module PM
       module Adapters
-        require "net/http"
-        require "uri"
-        require "json"
+        require 'net/http'
+        require 'uri'
+        require 'json'
 
         # Jira PM adapter
-        class Jira
-          # @return [Hash] Hash of settings
-          attr_accessor :settings
-
+        class Jira < Speedflow::Adapter
           DEFAULT_PORT = 443
-          DEFAULT_TYPE = "Task"
-          ISSUE_PATH = "rest/api/2/issue/"
-
-          # Public: Create an instance of
-          # Speedflow::Mods::PM::Adapters::Jira
-          #
-          # project_path - Project path.
-          # settings     - Hash of mod or adapter settings.
-          #
-          # Examples
-          #
-          #    Speedflow::Mods::VCS::Adapters::Git.new('.', {})
-          #
-          # Returns nothing.
-          def initialize(project_path, settings = {})
-            @project_path = project_path
-            @settings = settings || {}
-          end
+          DEFAULT_TYPE = 'Task'
+          ISSUE_PATH = 'rest/api/2/issue/'
 
           # Public: Create issue
           # TODO Manage exceptions
@@ -87,29 +68,33 @@ module Speedflow
           #    # => nil
           #
           # Returns nothing.
-          def ask_configuration
-            host = ask("Host?".colorize(:light_blue), String)
-            @settings[:host] = host.to_s
+          def ask_config!
+            host = ask('Host?'.colorize(:light_blue), String) do |q|
+              q.default = get(:host)
+            end
+            set(:host, host.to_s)
 
-            port = ask("Port?".colorize(:light_blue), Integer) do |q|
-              q.default = DEFAULT_PORT
+            port = ask('Port?'.colorize(:light_blue), Integer) do |q|
+              q.default = DEFAULT_PORT.to_s
             end
             unless DEFAULT_PORT == port.to_i
-              @settings[:port] = port.to_i
+              set(:port, port.to_i)
             end
 
-            project = ask("Project ID?".colorize(:light_blue), String)
-            @settings[:project] = project.to_s
+            project = ask('Project ID?'.colorize(:light_blue), String) do |q|
+              q.default = get(:project)
+            end
+            set(:project, project.to_s)
 
             # TODO Fix response
             # TODO Add abstract
-            issue_create = agree("Create issue in Jira? (y/n)".colorize(:light_blue))
-            @settings[:create_issue] = issue_create
+            issue_create = agree('Create issue in Jira? (y/n)'.colorize(:light_blue))
+            set(:create_issue, issue_create)
 
             # TODO Add notice method
-            say("Think to add this following lines to your ~/.Xrc file:".colorize(color: :black, background: :light_blue))
-            say("export JIRA_USER=username".colorize(:grey))
-            say("export JIRA_PASSWORD=password".colorize(:grey))
+            say('Think to add this following lines to your ~/.Xrc file:'.colorize(color: :black, background: :light_blue))
+            say('export JIRA_USER=username'.colorize(:grey))
+            say('export JIRA_PASSWORD=password'.colorize(:grey))
           end
 
           protected

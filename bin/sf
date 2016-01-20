@@ -2,7 +2,14 @@
 
 require 'speedflow'
 
+PROJECT_PATH = File.expand_path('.')
+
 # Kill exiting error
 Signal.trap('SIGINT') { exit 130 }
 
-Speedflow::App.new(File.expand_path('.')).run
+# Load configuration
+config = Speedflow::Config.new(PROJECT_PATH)
+config.load!
+
+# Run application
+Speedflow::App.new(config).run

@@ -14,27 +14,24 @@ module Speedflow
       #
       # Returns nothing.
       def call(args, options)
-        if !@configuration.exists? || options.force
-          # TODO Convert to block
-          Speedflow::Mod.mods.each do |ref|
-            mod = Speedflow::Mod.instance(
-              ref.first,  @project_path, false, @configuration.settings || {}
-            )
-            if agree(("Do you want to use a "+mod.name+"? (y/n)").colorize(:light_blue))
-              mod.ask_configuration
-              @configuration.settings[ref.first] = mod.settings
+        if !@config.exists? || options.force
+          Speedflow::Mod.mods(@config) do |mod|
+            if agree(("Do you want to use a #{mod.name}? (y/n)").colorize(:light_blue))
+              mod.ask_config!
+            else
+              @config.remove_key!(mod.id)
             end
           end
 
-          unless @configuration.settings.empty?
-            @configuration.save
+          unless @config.empty?
+            @config.save
 
-            say("Initialized speedflow in #{@project_path}".colorize(:light_green))
+            say("Initialized speedflow in #{@config.path}".colorize(:light_green))
           else
-            say("Initialized speedflow canceled".colorize(:light_red))
+            say('Initialized speedflow canceled'.colorize(:light_red))
           end
         else
-          say("Speedflow already exists in #{@project_path}".colorize(:light_red))
+          say("Speedflow already exists in #{@config.path}".colorize(:light_red))
         end
       end
     end

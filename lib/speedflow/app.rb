@@ -8,18 +8,16 @@ module Speedflow
 
     # Public: Create an instance of Speedflow::App
     #
-    # project_path - Project path.
+    # config - Speedflow config object.
     #
     # Examples
     #
-    #    Speedflow::App.new('.')
+    #    Speedflow::App.new(Speedflow::Config.load(PROJECT_PATH))
     #
     # Returns nothing.
-    def initialize(project_path)
-      @project_path = project_path
+    def initialize(config)
       @specs = Gem.loaded_specs['speedflow']
-      @config = Speedflow::Configuration
-      @config.project_path = project_path
+      @config = config
     end
 
     # Public: Run Speedflow application
@@ -66,9 +64,9 @@ module Speedflow
     #
     # Returns nothing.
     def default_command!
-      command :default do |c|
-        c.action(
-          Speedflow::Commands::Default.new(@specs, @project_path, c, @config)
+      command :default do |cmd|
+        cmd.action(
+          Speedflow::Commands::Default.new(@specs, @config, cmd)
         )
       end
       default_command :default
@@ -83,12 +81,12 @@ module Speedflow
     #
     # Returns nothing.
     def init_command!
-      command :init do |c|
-        c.syntax = "#{@specs.name} init"
-        c.description = 'Initialize your project flow'
-        c.option '-f', '--force', 'Force file creation'
-        c.action(
-          Speedflow::Commands::Init.new(@specs, @project_path, c, @config)
+      command :init do |cmd|
+        cmd.syntax = "#{@specs.name} init"
+        cmd.description = 'Initialize your project flow'
+        cmd.option '-f', '--force', 'Force file creation'
+        cmd.action(
+          Speedflow::Commands::Init.new(@specs, @config, cmd)
         )
       end
       alias_command :i, :init
@@ -103,12 +101,12 @@ module Speedflow
     #
     # Returns nothing.
     def new_command!
-      command :new do |c|
-        c.syntax = "#{@specs.name} new"
-        c.description = 'New issue'
-        c.option '-s', '--subject [STRING]', String, 'Subject'
-        c.action(
-          Speedflow::Commands::New.new(@specs, @project_path, c, @config)
+      command :new do |cmd|
+        cmd.syntax = "#{@specs.name} new"
+        cmd.description = 'New issue'
+        cmd.option '-s', '--subject [STRING]', String, 'Subject'
+        cmd.action(
+          Speedflow::Commands::New.new(@specs, @config, cmd)
         )
       end
       alias_command :n, :new
@@ -123,11 +121,11 @@ module Speedflow
     #
     # Returns nothing.
     def review_command!
-      command :review do |c|
-        c.syntax = "#{@specs.name} review"
-        c.description = 'Review issue'
-        c.action(
-          Speedflow::Commands::Review.new(@specs, @project_path, c, @config)
+      command :review do |cmd|
+        cmd.syntax = "#{@specs.name} review"
+        cmd.description = 'Review issue'
+        cmd.action(
+          Speedflow::Commands::Review.new(@specs, @config, cmd)
         )
       end
       alias_command :r, :review

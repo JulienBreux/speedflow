@@ -3,29 +3,10 @@ module Speedflow
     module SCM
       module Adapters
         # Git SCM adapter
-        class Git
-          # @return [Hash] Hash of settings
-          attr_accessor :settings
-
+        class Git < Speedflow::Adapter
           DEFAULT_PORT = 443
           WORKFLOWS = [:none, :gitflow]
           DEFAULT_WORKFLOW = :none
-
-          # Public: Create an instance of
-          # Speedflow::Mods::SCM::Adapters::Git
-          #
-          # project_path - Project path.
-          # settings     - Hash of mod or adapter settings.
-          #
-          # Examples
-          #
-          #    Speedflow::Mods::SCM::Adapters::Git.new('.', {})
-          #
-          # Returns nothing.
-          def initialize(project_path, settings = {})
-            @project_path = project_path
-            @settings = settings || {}
-          end
 
           # Public: Create branch
           # TODO Move
@@ -148,22 +129,22 @@ module Speedflow
           #    # => nil
           #
           # Returns nothing.
-          def ask_configuration
+          def ask_config!
             choose do |menu|
-              git = ::Git.open(@project_path)
+              git = ::Git.open(@config.path)
 
-              menu.header = "Remote?".colorize(:light_blue)
+              menu.header = 'Remote?'.colorize(:light_blue)
               menu.choices(*git.remotes) do |remote|
-                @settings[:remote] = remote.to_s
+                set(:remote, remote.to_s)
               end
               menu.default = git.remotes.first.name
             end
 
             choose do |menu|
-              menu.header = "Workflow?".colorize(:light_blue)
+              menu.header = 'Workflow?'.colorize(:light_blue)
               menu.choices(*WORKFLOWS) do |workflow|
                 unless DEFAULT_WORKFLOW == workflow
-                  @settings[:workflow] = workflow.to_s
+                  set(:workflow, workflow.to_s)
                 end
               end
               menu.default = DEFAULT_WORKFLOW
