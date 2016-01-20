@@ -36,3 +36,6 @@ Gemfile.lock
 
 # Gem
 .sf.yml
+
+# Project
+.idea/
