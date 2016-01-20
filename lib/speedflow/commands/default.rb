@@ -4,8 +4,8 @@ module Speedflow
     class Default < Speedflow::Commands::Abstract
       # Public: Call command
       #
-      # args    - Arguments.
-      # options - Options.
+      # _args    - Arguments.
+      # _options - Options.
       #
       # Examples
       #
@@ -13,7 +13,7 @@ module Speedflow
       #    # => nil
       #
       # Returns nothing.
-      def call(args, options)
+      def call(_args, _options)
         help = (@specs.name.to_s+" ("+@specs.version.to_s+")").capitalize().colorize(:light_blue)+" - "
         help << ("By "+@specs.authors[0]+" <"+@specs.email[0]+">\n").colorize(:light_red)
         help << <<-EOS.strip_heredoc

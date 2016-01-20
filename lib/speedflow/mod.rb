@@ -90,7 +90,7 @@ module Speedflow
     #
     # Returns hash of mods.
     def self.mods(config)
-      MODS.each do |id, meta|
+      MODS.each do |_id, meta|
         yield(
           meta[:instance].new(meta[:id], config, meta[:name])
         )

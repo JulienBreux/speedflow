@@ -4,7 +4,7 @@ module Speedflow
     class New < Speedflow::Commands::Abstract
       # Public: Call command
       #
-      # args    - Arguments.
+      # _args   - Arguments.
       # options - Options.
       #
       # Examples
@@ -13,7 +13,7 @@ module Speedflow
       #    # => nil
       #
       # Returns nothing.
-      def call(args, options)
+      def call(_args, options)
         # TODO BEGIN - Move to an option helper
         unless options.subject
           say("Missing options: subject".colorize(:light_red))

@@ -4,8 +4,8 @@ module Speedflow
     class Review < Speedflow::Commands::Abstract
       # Public: Call command
       #
-      # args    - Arguments.
-      # options - Options.
+      # _args    - Arguments.
+      # _options - Options.
       #
       # Examples
       #
@@ -13,7 +13,7 @@ module Speedflow
       #    # => nil
       #
       # Returns nothing.
-      def call(args, options)
+      def call(_args, _options)
         settings = @configuration.settings
 
         pm_adapter = Speedflow::Mod.instance(:PM, settings, @project_path, true) if settings[:PM]

@@ -5,7 +5,7 @@ module Speedflow
         # Git SCM adapter
         class Git < Speedflow::Adapter
           DEFAULT_PORT = 443
-          WORKFLOWS = [:none, :gitflow]
+          WORKFLOWS = [:none, :gitflow].freeze
           DEFAULT_WORKFLOW = :none
 
           # Public: Create branch
@@ -20,15 +20,14 @@ module Speedflow
           def create_branch(subject, issue_key)
             # TODO Check settings
             subject = ActiveSupport::Inflector.parameterize(subject)
+            branch_name =  "#{issue_key}-#{subject}"
 
-            if workflow == "none"
-              branch_name = issue_key+"-"+subject
-
+            if workflow == 'none'
               git = ::Git.open(@project_path)
               git.branch(branch_name).checkout
               git.push(@settings[:remote], branch_name)
-            elsif workflow == "gitflow"
-
+            elsif workflow == 'gitflow'
+              branch_name = "features/#{branch_name}"
             end
 
             {name: branch_name}

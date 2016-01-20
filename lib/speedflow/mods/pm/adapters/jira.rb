@@ -29,12 +29,12 @@ module Speedflow
               fields: {
                 project: {key: @settings[:project]},
                 summary: subject,
-                issuetype: { name: DEFAULT_TYPE }
+                issuetype: { name: type }
               }
             }
 
             uri = URI(url+ISSUE_PATH)
-            req = Net::HTTP::Post.new(uri.path, initheader = {'Content-Type' =>'application/json'})
+            req = Net::HTTP::Post.new(uri.path, initheader: {'Content-Type' =>'application/json'})
             req.basic_auth(ENV["JIRA_USER"], ENV["JIRA_PASSWORD"])
             req.body = data.to_json
 

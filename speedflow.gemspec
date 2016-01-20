@@ -10,15 +10,18 @@ Gem::Specification.new do |spec|
   spec.email              = ['julien.breux@gmail.com']
 
   spec.summary            = 'Speedflow help you to boost your workflow.'
-  spec.description        = 'Speedflow is a glue between some tools (Eg: Jira, Git-Flow, GitHub and more...)'
+  spec.description        = 'Speedflow is a glue between some tools ' \
+                            '(Eg: Jira, Git-Flow, GitHub and more...)'
   spec.homepage           = 'https://JulienBreux.github.io/speedflow'
   spec.license            = 'MIT'
 
-  spec.files              = Dir['LICENSE', 'readme.md', 'version', 'lib/**/*', 'bin/**/*', 'test/**/*']
+  spec.files              = Dir[
+    'LICENSE', 'readme.md', 'version', 'lib/**/*', 'bin/**/*', 'test/**/*'
+  ]
   spec.test_files         = spec.files.grep(/^test/)
   spec.require_paths      = ['lib']
   spec.bindir             = 'bin'
-  spec.executables        = ['speedflow', 'sf']
+  spec.executables        = %w('speedflow', 'sf')
   spec.default_executable = ['speedflow']
 
   # Core dependencies

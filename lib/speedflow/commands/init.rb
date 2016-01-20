@@ -4,7 +4,7 @@ module Speedflow
     class Init < Speedflow::Commands::Abstract
       # Public: Call command
       #
-      # args    - Arguments.
+      # _args   - Arguments.
       # options - Options.
       #
       # Examples
@@ -13,7 +13,7 @@ module Speedflow
       #    # => nil
       #
       # Returns nothing.
-      def call(args, options)
+      def call(_args, options)
         if !@config.exists? || options.force
           Speedflow::Mod.mods(@config) do |mod|
             if agree(("Do you want to use a #{mod.name}? (y/n)").colorize(:light_blue))
