@@ -7,6 +7,7 @@ module Speedflow
     # Public: Create an instance of
     # Speedflow::Mods::PM::Adapters::Jira
     #
+    # mod_id - Mod ID.
     # config - Configuration.
     #
     # Examples
@@ -35,24 +36,29 @@ module Speedflow
 
     # Public: Set configuration
     #
+    # key    - Key of configuration set
+    # value  - Value of configuration set
+    #
     # Examples
     #
     #    set(:key, "value")
     #    # => nil
     #
-    # Returns nothings.
+    # Returns nothing.
     def set(key, value)
       @config.merge!(Hash[@mod_id, Hash[key, value]])
     end
 
     # Public: Get configuration
     #
+    # key    - Key of configuration set
+    #
     # Examples
     #
     #    get(:key)
     #    # => "baz"
     #
-    # Returns value.
+    # Returns the key value.
     def get(key)
       @config.to_h[@mod_id][key] if @config.to_h[@mod_id] && @config.to_h[@mod_id][key]
     end
