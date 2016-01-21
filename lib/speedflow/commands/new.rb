@@ -21,15 +21,27 @@ module Speedflow
         end
         # TODO: END - Move to an option helper
 
+        command(options.subject)
+      end
+
+      # Public: Command
+      #
+      # Examples
+      #
+      #    command
+      #    # => nil
+      #
+      # Returns nothing.
+      def command(subject)
         settings = @configuration.settings
 
         # Project Manager part
         if settings[:PM]
           say('Project manager'.colorize(:light_blue))
 
-          adapter = Speedflow::Mod.instance(:PM, settings, @project_path, true)
+          adapter = Speedflow::Mod.instance(:PM, settings, @config.path, true)
 
-          issue = adapter.create_issue(options.subject)
+          issue = adapter.create_issue(subject)
           say("Issue created: #{issue['key']}".colorize(:light_green)) if issue
         end
 
@@ -37,9 +49,9 @@ module Speedflow
         if settings[:SCM]
           say('Service control manager'.colorize(:light_blue))
 
-          adapter = Speedflow::Mod.instance(:SCM, settings, @project_path, true)
+          adapter = Speedflow::Mod.instance(:SCM, settings, @config.path, true)
 
-          branch = adapter.create_branch(options.subject, issue['key'] || nil)
+          branch = adapter.create_branch(subject, issue['key'] || nil)
           if branch
             say("Local branch created: #{branch[:name]}".colorize(:light_green))
           end

@@ -60,9 +60,7 @@ module Speedflow
     #
     # Returns the key value.
     def get(key)
-      if @config.to_h[@mod_id] && @config.to_h[@mod_id][key]
-        @config.to_h[@mod_id][key]
-      end
+      @config.to_h[@mod_id][key] if @config.to_h[@mod_id] && @config.to_h[@mod_id][key]
     end
   end
 end

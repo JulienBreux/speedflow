@@ -24,10 +24,8 @@ module Speedflow
       #
       # Returns nothing.
       def call(_args, _options)
-        help = "#{@specs.name} ".capitalize.colorize(:light_blue)
-        help << "(#{@specs.version}) - ".capitalize.colorize(:light_blue)
-        help << "By #{@specs.authors.first} ".colorize(:light_red)
-        help << "<#{@specs.email.first}>\n".colorize(:light_red)
+        help = "#{@specs.name} (#{@specs.version}) - ".capitalize.colorize(:light_blue)
+        help << "By #{@specs.authors.first} <#{@specs.email.first}>\n".colorize(:light_red)
         help << BANNER
         say(help)
       end
