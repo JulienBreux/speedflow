@@ -25,6 +25,7 @@ module Speedflow
     def initialize(path, settings = nil)
       @path = path
       @settings = settings || {}
+      @file = File.expand_path("#{@path}/#{FILENAME}")
     end
 
     # Public: Convert open struct to hash
@@ -49,9 +50,8 @@ module Speedflow
     #
     # Returns nothing.
     def save
-      File.open("#{@path}/#{FILENAME}", 'w') do |file|
-        file.write @settings.deep_stringify_keys.to_yaml
-      end
+      file = File.open(@file, 'w')
+      file.write(@settings.deep_stringify_keys.to_yaml)
     end
 
     # Public: Check if configuration file exists
@@ -64,7 +64,7 @@ module Speedflow
     #
     # Returns if configuration file exists.
     def exists?
-      File.exist?("#{@path}/#{FILENAME}")
+      File.exist?(@file)
     end
 
     # Public: Check empty configuration
@@ -116,7 +116,7 @@ module Speedflow
     # Returns config instance.
     def load!
       if exists?
-        path = File.read("#{@path}/#{FILENAME}")
+        path = File.read(@file)
         content = ERB.new(path).result
         content = YAML.load(content)
         @settings = content.deep_symbolize_keys if content.is_a?(Hash)

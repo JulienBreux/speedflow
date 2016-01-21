@@ -6,3 +6,14 @@ Metrics/LineLength:
 
 Metrics/MethodLength:
   Max: 30
+
+AllCops:
+  Exclude:
+    - 'bin/**/*'
+    - 'coverage/**/*'
+    - 'doc/**/*'
+    - 'test/**/*'
+    - 'pkg/**/*'
+    - 'resources/**/*'
+    - 'tmp/**/*'
+    - 'vendor/**/*'
