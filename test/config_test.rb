@@ -32,6 +32,13 @@ class TestSpeedflowConfig < Minitest::Test
     assert_equal(@config.to_h, hash)
   end
 
+  def test_not_load
+    path = File.expand_path('../breux/', __FILE__)
+    config = Speedflow::Config.new(path)
+    config.load!
+    assert_equal(config.to_h, {})
+  end
+
   def test_exists
     assert(@config.exists?)
   end
