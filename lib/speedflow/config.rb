@@ -50,7 +50,7 @@ module Speedflow
     # Returns nothing.
     def save
       File.open("#{@path}/#{FILENAME}", 'w') do |file|
-        file.write @settings.deep_stringify_keys.to_yaml.gsub("---\n", '')
+        file.write @settings.deep_stringify_keys.to_yaml
       end
     end
 
