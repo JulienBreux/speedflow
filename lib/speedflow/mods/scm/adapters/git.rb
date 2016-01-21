@@ -103,8 +103,7 @@ module Speedflow
           # Returns string of user.
           def user
             # TODO: Check settings
-            remote = git.remotes(@settings[:remote])
-            p remote
+            # remote = git.remotes(@settings[:remote])
           end
 
           # Public: Get repository

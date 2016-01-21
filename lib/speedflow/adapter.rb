@@ -1,6 +1,8 @@
 module Speedflow
   # Speedflow configuration
   class Adapter
+    include Speedflow::Helpers
+
     # @return [<Speedflow::Config>] Config
     attr_accessor :config
 

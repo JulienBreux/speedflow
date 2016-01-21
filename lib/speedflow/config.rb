@@ -111,7 +111,7 @@ module Speedflow
     # Examples
     #
     #    load!
-    #    # => Speedflow::Config
+    #    # => {}
     #
     # Returns config instance.
     def load!
@@ -120,6 +120,8 @@ module Speedflow
         content = ERB.new(path).result
         content = YAML.load(content)
         @settings = content.deep_symbolize_keys if content.is_a?(Hash)
+      else
+        Hash
       end
     end
   end
