@@ -1,7 +1,5 @@
 require 'test_helper'
 
-require 'speedflow/config'
-
 class TestSpeedflowAdapter < Minitest::Test
   def setup
     $terminal = HighLine.new(nil, (@output = StringIO.new))

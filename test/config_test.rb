@@ -1,7 +1,5 @@
 require 'test_helper'
 
-require 'speedflow/config'
-
 class TestSpeedflowConfig < Minitest::Test
   def setup
     @path = File.expand_path('../fixtures/', __FILE__)

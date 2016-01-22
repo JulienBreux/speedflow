@@ -1,7 +1,5 @@
 require 'test_helper'
 
-require 'speedflow/helpers'
-
 class TestSpeedflowHelpers < Minitest::Test
   include Speedflow::Helpers
 
