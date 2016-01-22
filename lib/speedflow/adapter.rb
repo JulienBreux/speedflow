@@ -43,10 +43,10 @@ module Speedflow
     #
     # Examples
     #
-    #    set(:key, "value")
-    #    # => nil
+    #    set(:key, 'value')
+    #    # => {key: 'value'}
     #
-    # Returns nothing.
+    # Returns hash of configuration.
     def set(key, value)
       @config.merge!(Hash[@mod_id, Hash[key, value]])
     end
