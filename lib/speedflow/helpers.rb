@@ -1,6 +1,18 @@
 module Speedflow
   # Speedflow helpers
   module Helpers
+    # Public: Info
+    #
+    # Examples
+    #
+    #    info 'Hello'
+    #    # => nil
+    #
+    # Returns nothing.
+    def info(message)
+      say(message.colorize(:grey))
+    end
+
     # Public: Notice
     #
     # Examples

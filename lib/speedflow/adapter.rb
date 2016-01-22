@@ -33,7 +33,7 @@ module Speedflow
     #
     # Returns nothing.
     def ask_config!
-      say('No configuration for this adapter.'.colorize(:grey))
+      info 'No configuration for this adapter.'
     end
 
     # Public: Set configuration

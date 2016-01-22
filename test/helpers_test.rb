@@ -9,6 +9,11 @@ class TestSpeedflowHelpers < Minitest::Test
     $terminal = HighLine.new(nil, (@output = StringIO.new))
   end
 
+  def test_info
+    assert_equal(info('test'), nil)
+    assert_equal(@output.string, "\e[0;39;49mtest\e[0m\n")
+  end
+
   def test_notice
     assert_equal(notice('test'), nil)
     assert_equal(@output.string, "\e[0;94;49mtest\e[0m\n")
