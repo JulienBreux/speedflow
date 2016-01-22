@@ -40,7 +40,7 @@ module Speedflow
     #
     # Returns nothing.
     def ask_config!
-      Kernel.choose do |menu|
+      choose do |menu|
         menu.header = 'Please choose your an adapter?'.colorize(:light_blue)
         menu.choices(*adapters) do |adapter_name|
           adapter(adapter_name).ask_config!
@@ -110,29 +110,6 @@ module Speedflow
     # Returns nothing.
     def self.register(id, name)
       MODS[id] = { instance: self, id: id, name: name }
-    end
-
-    # Public: Get mod or mod adapter instance
-    #
-    # ref              - Reference of mod.
-    # project_path     - Project path.
-    # adapter_instance - Use to get adapter instance.
-    # settings         - Hash of mod or adapter settings.
-    #
-    # Examples
-    #
-    #    instance(:MOD, "./", {foo: "", bar: "", baz: ""})
-    #    # => Speedflow::Mods::<MOD>::Mod
-    #
-    #    instance(:MOD, "./", true, {foo: "", bar: "", baz: ""})
-    #    # => Speedflow::Mods::<MOD>::Adapters::<adapter>
-    #
-    # Returns mod or mod adapter.
-    def self.instance(ref, project_path, adapter_instance, settings = {})
-      mod = MODS[ref][:instance].new(
-        ref, project_path, MODS[ref][:name], settings[ref]
-      )
-      adapter_instance ? mod.adapter(settings[ref][:adapter]) : mod
     end
   end
 end
