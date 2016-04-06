@@ -1,1 +1,1 @@
-Project move to [Speedflow](https://github.com/speedflow/).
+Project move to [Speedflow](https://github.com/speedflow/) :+1:.
